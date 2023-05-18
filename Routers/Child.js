@@ -1,18 +1,14 @@
-const { response } = require("express");
 const express = require("express");
+const Controller = require("../Controllers/ChildController");
+const { CheckChild } = require("../MiddleWares/AuthentcationMiddleWare");
 const routers = express.Router();
 routers
-  .route("/Children")
-  .get((request , response) => {
-    response.json("Show Children Get Request");
-  })
-  .post((request , response) => {
-    response.json("Add Child Post Request");
-  })
-  .patch((request , response) => {
-    response.json("Edit Child Patch Request ");
-  })
-  .delete((request , response) => {
-    response.json("Remove Child Delete Request ");
-  });
+  .route("/Children/")
+  .all(CheckChild)
+  .get(Controller.GetChildren)
+  .post(Controller.AddChild)
+  .patch(Controller.UpdateChild)
+  .delete(Controller.DeleteChild);
+
+routers.route("/Children/:id?").get(Controller.GetChild);
 module.exports = routers;

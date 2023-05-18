@@ -1,18 +1,15 @@
 const { response } = require("express");
 const express = require("express");
+const Controller = require("../Controllers/ClassController");
 const routers = express.Router();
 routers
   .route("/Classes")
-  .get((request , response) => {
-    response.json("Show Classses Get Request");
-  })
-  .post((request , response) => {
-    response.json("Add Class Post Request");
-  })
-  .patch((request , response) => {
-    response.json("Edit Class Patch Request ");
-  })
-  .delete((request , response) => {
-    response.json("Remove Class Delete Request ");
-  });
+  .get(Controller.GetClasses)
+  .post(Controller.AddClass)
+  .patch(Controller.UpdateClass)
+  .delete(Controller.DeleteClass);
+routers
+  .route("/Classes/:Id")
+  .get(Controller.GetClassByBody)
+  .post(Controller.AddClassBybody);
 module.exports = routers;
